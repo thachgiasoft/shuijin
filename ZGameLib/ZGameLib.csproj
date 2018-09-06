@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6093EDAA-247E-4741-B442-BEEEE1AC0461}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZGameLib</RootNamespace>
+    <AssemblyName>ZGameLib</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UnityAsset\AssetProvider.cs" />
+    <Compile Include="UnityUI\BaseUI.cs" />
+    <Compile Include="UnityUI\UIItem.cs" />
+    <Compile Include="UnityUI\Exts\ZItem.cs" />
+    <Compile Include="UnityUI\UIMgr.cs" />
+    <Compile Include="UnityUI\UIMgrProvider.cs" />
+    <Compile Include="UnityUI\Exts\ZUIItem.cs" />
+    <Compile Include="UnityUI\Exts\ZUIElement.cs" />
+    <Compile Include="UnityAsync\UnityAsync.cs" />
+    <Compile Include="UnityAsync\UnityAsyncProvider.cs" />
+    <Compile Include="UnityAsset\Loader\AssetAllLoader.cs" />
+    <Compile Include="UnityAsset\Loader\AssetLoader.cs" />
+    <Compile Include="UnityAsset\Asset.cs" />
+    <Compile Include="UnityAsset\AssetMgr.cs" />
+    <Compile Include="UnityLog\UnityLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnityLog\UnityLoggerProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZCSharpLib\ZCSharpLib.csproj">
+      <Project>{8f1a7955-dd03-40e3-97c5-0b6ec3e0d264}</Project>
+      <Name>ZCSharpLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)ZGameLib.dll" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZGameLib.dll"
+copy "$(TargetDir)ZGameLib.pdb" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZGameLib.pdb"
+copy "$(TargetDir)ZCSharpLib.dll" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZCSharpLib.dll"
+copy "$(TargetDir)ZCSharpLib.pdb" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZCSharpLib.pdb"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

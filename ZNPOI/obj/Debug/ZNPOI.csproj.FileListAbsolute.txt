@@ -1,0 +1,10 @@
+E:\work\ZNPOI\bin\Debug\ZNPOI.dll.config
+E:\work\ZNPOI\bin\Debug\ZNPOI.dll
+E:\work\ZNPOI\bin\Debug\ZNPOI.pdb
+E:\work\ZNPOI\obj\Debug\ZNPOI.csprojAssemblyReference.cache
+E:\work\ZNPOI\obj\Debug\ZNPOI.csproj.CoreCompileInputs.cache
+E:\work\ZNPOI\obj\Debug\ZNPOI.dll
+E:\work\ZNPOI\obj\Debug\ZNPOI.pdb
+E:\work\ZNPOI\bin\Debug\ZCSharpLib.dll
+E:\work\ZNPOI\bin\Debug\ZCSharpLib.pdb
+E:\work\ZNPOI\obj\Debug\ZNPOI.csproj.CopyComplete
