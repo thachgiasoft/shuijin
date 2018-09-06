@@ -1,0 +1,11 @@
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\ZGameLib.dll
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\ZGameLib.pdb
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\ICSharpCode.SharpZipLib.dll
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\UnityEngine.dll
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\ZCSharpLib.dll
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\ZCSharpLib.pdb
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\bin\Release\UnityEngine.xml
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\obj\Release\ZGameLib.csprojResolveAssemblyReference.cache
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\obj\Release\ZGameLib.csproj.CoreCompileInputs.cache
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\obj\Release\ZGameLib.dll
+C:\Users\yunchen1008\source\repos\MyLibrary\ZGameLib\obj\Release\ZGameLib.pdb

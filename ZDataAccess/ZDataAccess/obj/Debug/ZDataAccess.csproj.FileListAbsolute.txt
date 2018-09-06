@@ -1,0 +1,11 @@
+F:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.csprojResolveAssemblyReference.cache
+F:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.csproj.CoreCompileInputs.cache
+E:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.csprojAssemblyReference.cache
+E:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.csproj.CoreCompileInputs.cache
+E:\work\ZDataAccess\ZDataAccess\bin\Debug\ZDataAccess.dll
+E:\work\ZDataAccess\ZDataAccess\bin\Debug\ZDataAccess.pdb
+E:\work\ZDataAccess\ZDataAccess\bin\Debug\ZCSharpLib.dll
+E:\work\ZDataAccess\ZDataAccess\bin\Debug\ZCSharpLib.pdb
+E:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.csproj.CopyComplete
+E:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.dll
+E:\work\ZDataAccess\ZDataAccess\obj\Debug\ZDataAccess.pdb

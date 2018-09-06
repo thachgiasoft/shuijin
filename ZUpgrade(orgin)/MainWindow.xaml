@@ -1,0 +1,28 @@
+﻿<Window x:Class="Upgrade.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameUpdate"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="253.757" Width="445.495" AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid Margin="-111,-8,-93.667,-50" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Content="虚游记智能旅游平台" Margin="171,50,145,0" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black">
+            <Label.Effect>
+                <DropShadowEffect Color="#FFFAB600"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="景春网络科技有限公司" Margin="272,111,248,0" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black">
+            <Label.Effect>
+                <DropShadowEffect Color="#FFFAB600"/>
+            </Label.Effect>
+        </Label>
+        <ProgressBar x:Name="LoadProgress" HorizontalAlignment="Left" Height="5" Margin="140,214,0,0" VerticalAlignment="Top" Width="394" Foreground="#FFFABE03" Background="#FF0C0000"/>
+        <Label Content="当前版本号" HorizontalAlignment="Center" Margin="285.788,141.333,267.972,145.333" VerticalAlignment="Center" Width="96.24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="TxtVersion" Content="未知" HorizontalAlignment="Center" Margin="247,167,227,120" VerticalAlignment="Center" RenderTransformOrigin="-2.108,2.845" Width="176" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" AutomationProperties.Name="sss"/>
+        <Label x:Name="TxtUpdateInfo" Content="更新信息" HorizontalAlignment="Center" Margin="415.69,224,116,62.666" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="118.31"/>
+        <Button x:Name="BtnClose" Content="X" HorizontalAlignment="Left" Margin="534.76,8.047,0,0" VerticalAlignment="Top" Width="21.229" BorderBrush="#016A2B2B" Foreground="Black" Background="#00DDDDDD" Click="BtnClose_Click"/>
+        <Label Content="下一版本：" HorizontalAlignment="Left" Margin="140,224,0,0" VerticalAlignment="Top" Width="62.35"/>
+        <Label x:Name="TxtNextVersion" Content="未知" HorizontalAlignment="Left" Margin="202.35,224,0,0" VerticalAlignment="Top" Width="246.056"/>
+    </Grid>
+</Window>
