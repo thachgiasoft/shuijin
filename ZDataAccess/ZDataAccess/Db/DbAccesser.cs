@@ -8,6 +8,8 @@ namespace ZDataAccess.Db
 {
     public abstract class DbAccesser
     {
-
+        public DbAccesser()
+        {
+        }
     }
 }

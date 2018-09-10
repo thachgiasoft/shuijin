@@ -8,3 +8,13 @@ E:\work\ZNPOI\obj\Debug\ZNPOI.pdb
 E:\work\ZNPOI\bin\Debug\ZCSharpLib.dll
 E:\work\ZNPOI\bin\Debug\ZCSharpLib.pdb
 E:\work\ZNPOI\obj\Debug\ZNPOI.csproj.CopyComplete
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\obj\Debug\ZNPOI.csprojAssemblyReference.cache
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\obj\Debug\ZNPOI.csproj.CoreCompileInputs.cache
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\bin\Debug\ZNPOI.dll.config
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\bin\Debug\ZNPOI.dll
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\bin\Debug\ZNPOI.pdb
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\bin\Debug\ZCSharpLib.dll
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\bin\Debug\ZCSharpLib.pdb
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\obj\Debug\ZNPOI.csproj.CopyComplete
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\obj\Debug\ZNPOI.dll
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZNPOI\obj\Debug\ZNPOI.pdb

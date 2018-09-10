@@ -32,3 +32,9 @@ F:\work\ZCSharpLib\obj\Debug\ZCSharpLib.csprojResolveAssemblyReference.cache
 F:\work\ZCSharpLib\obj\Debug\ZCSharpLib.csproj.CoreCompileInputs.cache
 F:\work\ZCSharpLib\obj\Debug\ZCSharpLib.dll
 F:\work\ZCSharpLib\obj\Debug\ZCSharpLib.pdb
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\bin\Debug\ZCSharpLib.dll
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\bin\Debug\ZCSharpLib.pdb
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.csprojAssemblyReference.cache
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.csproj.CoreCompileInputs.cache
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.dll
+D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.pdb
