@@ -7,13 +7,23 @@ using ZCSharpLib.ZTObject;
 
 namespace ZDataAccess.Db
 {
+    public enum DbType
+    {
+        None,
+        MySQL,
+    }
+
     public class DbAccess
     {
         private ZObjectPool<DbAccesser> AccesserPool;
 
-        public DbAccess(int num)
+        public DbAccess(int num, DbType dbType)
         {
             AccesserPool = new ZObjectPool<DbAccesser>(num);
+            for (int i = 0; i < AccesserPool.Count; i++)
+            {
+
+            }
         }
     }
 }
