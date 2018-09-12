@@ -33,8 +33,6 @@ namespace ZDataAccess.Db
             }
         }
 
-
-
         private DbAccesser Create(DbType dbType)
         {
             DbAccesser dbAccesser = null;

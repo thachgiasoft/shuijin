@@ -33,8 +33,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>Lib\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>Lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe">
+      <HintPath>Lib\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,6 +53,11 @@
   <ItemGroup>
     <Compile Include="Db\DbAccess.cs" />
     <Compile Include="Db\DbAccesser.cs" />
+    <Compile Include="Db\DbSort\MySqlAccesser.cs" />
+    <Compile Include="Db\DbSort\OdbcAccesser.cs" />
+    <Compile Include="Db\DbSort\OrcaleAccesser.cs" />
+    <Compile Include="Db\DbSort\SqlLiteAccesser.cs" />
+    <Compile Include="Db\DbSort\SqlServerAccesser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

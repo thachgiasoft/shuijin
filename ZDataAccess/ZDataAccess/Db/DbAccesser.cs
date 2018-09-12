@@ -15,5 +15,7 @@ namespace ZDataAccess.Db
         public string IntergratedSecurity { get; set; }
 
         public DbAccesser() { }
+
+        public 
     }
 }
