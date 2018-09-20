@@ -6,38 +6,6 @@ namespace ZCSharpLib.ZTObject
 {
     public abstract class ZObject : Any, IDisposable
     {
-        protected ZEvent Event { get; private set; }
-
-        protected string EventCall
-        {
-            get
-            {
-                return GetHashCode().ToString();
-            }
-        }
-
-        public ZObject()
-        {
-            Event = new ZEvent();
-        }
-
-        #region 事件
-        public void AddListener(IEventListener listener)
-        {
-            Event.AddListener(EventCall, listener);
-        }
-
-        public void RemoveListener(IEventListener listener)
-        {
-            Event.RemoveListener(EventCall, listener);
-        }
-
-        public void Notify(IEventArgs args)
-        {
-            Event.Notify(EventCall, args);
-        }
-        #endregion
-
         public abstract object Clone();
 
         public abstract void CopyTo(object destObj);
@@ -52,7 +20,7 @@ namespace ZCSharpLib.ZTObject
             Dispose(false);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Dispose(true);
         }

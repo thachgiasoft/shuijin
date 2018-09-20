@@ -10,7 +10,7 @@ namespace ZCSharpLib.Features.Web
     /// <summary>
     /// 通过http下载资源
     /// </summary>
-    public class WebLoader : ITick
+    public class WebLoader
     {
         /// <summary>
         /// 下载进度
@@ -232,7 +232,6 @@ namespace ZCSharpLib.Features.Web
             {
                 ZLogger.Error(e.ToString());
             }
-            Common.Tick.Detach(this);
         }
 
         /// <summary>

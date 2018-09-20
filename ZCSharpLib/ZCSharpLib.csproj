@@ -44,6 +44,7 @@
     <Compile Include="Common\Any.cs" />
     <Compile Include="Common\Provider\IZServiceProvider.cs" />
     <Compile Include="Common\Provider\ServiceProvider.cs" />
+    <Compile Include="Features\BevTree\BevNode.cs" />
     <Compile Include="Features\Model\ModelSettings.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Features\SharpZip\BZip2\BZip2.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Features\SharpZip\Zip\ZipOutputStream.cs" />
     <Compile Include="Features\SharpZip\Zip\ZipStrings.cs" />
     <Compile Include="Features\SharpZip\Additional\ZArraySegment.cs" />
+    <Compile Include="ZTObject\ZEventObject.cs" />
     <Compile Include="ZTObject\ZObject.cs" />
     <Compile Include="ZTEvent\Callback.cs" />
     <Compile Include="ZTEvent\IEventListener.cs" />
@@ -159,7 +161,7 @@
     <Compile Include="Features\NetWork\Udp\DaemonThread.cs" />
     <Compile Include="Features\NetWork\Udp\UdpSocket.cs" />
     <Compile Include="Features\NetWork\TokenOwner.cs" />
-    <Compile Include="Common\Tick.cs" />
+    <Compile Include="Tick\Ticker.cs" />
     <Compile Include="Features\FSM\FSM.cs" />
     <Compile Include="Features\FSM\FSMState.cs" />
     <Compile Include="Features\Web\WebAllLoader.cs" />

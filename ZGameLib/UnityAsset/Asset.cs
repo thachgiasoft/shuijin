@@ -4,10 +4,12 @@ using UnityEngine;
 using System;
 using ZCSharpLib.ZTObject;
 using ZCSharpLib.Common;
+using ZCSharpLib.ZTEvent;
+using ZCSharpLib;
 
 namespace ZGameLib.UnityAsset
 {
-    public class Asset : ZObject, ITick
+    public class Asset : ZObject
     {
         public enum AssetType
         {
@@ -24,8 +26,7 @@ namespace ZGameLib.UnityAsset
         public string Error { get; protected set; }
         public AssetType ThisType { get; protected set; }
         private WWW Loader { get; set; }
-        private Action<Asset> OnLoading { get; set; }
-        private Action<Asset> OnLoaded { get; set; }
+        private Action<Asset> Callback { get; set; }
 
         private AssetBundle mAssetBundle;
 
@@ -65,23 +66,13 @@ namespace ZGameLib.UnityAsset
 
         public void StartLoad()
         {
-            ZCSharpLib.Common.Tick.Attach(this);
+            App.AttachTick(Loop);
             Loader = new WWW(Url);
         }
 
         public void CloseLoad()
         {
-            ZCSharpLib.Common.Tick.Detach(this);
-        }
-
-        public void SetEventLoading(Action<Asset> executing)
-        {
-            OnLoading = executing;
-        }
-
-        public void SetEventLoaded(Action<Asset> onFinished)
-        {
-            OnLoaded = onFinished;
+            App.DetachTick(Loop);
         }
 
         public virtual void Loop(float deltaTime)
@@ -92,10 +83,9 @@ namespace ZGameLib.UnityAsset
             {
                 if (string.IsNullOrEmpty(Loader.error)) IsSucess = true;
                 else { IsSucess = false; Error = Loader.error; }
-                OnLoaded?.Invoke(this);
             }
-            OnLoading?.Invoke(this);
             Progress = Loader.progress;
+            Callback?.Invoke(this);
         }
 
         public string[] GetAllSceneNames()
@@ -153,7 +143,6 @@ namespace ZGameLib.UnityAsset
             else return null;
         }
 
-
         public AudioClip GetAudioClip()
         {
             System.Object obj = null;
@@ -200,6 +189,11 @@ namespace ZGameLib.UnityAsset
             }
             if (obj != null) return obj as byte[];
             else return null;
+        }
+
+        public void AddEvent(Action<Asset> callback)
+        {
+            Callback = callback;
         }
 
         protected override void DoManagedObjectDispose()

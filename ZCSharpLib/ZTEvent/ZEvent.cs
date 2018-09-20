@@ -10,138 +10,148 @@ namespace ZCSharpLib.ZTEvent
 {
     public class ZEvent
     {
-        protected Dictionary<string, List<IEventListener>> ListenerTable { get; set; }
-
-        public ZEvent()
+        struct DelayEvent
         {
-            ListenerTable = new Dictionary<string, List<IEventListener>>();
-        }
-
-        private List<IEventListener> GetListeners(string callEvent)
-        {
-            List<IEventListener> listeners = null;
-            if (ListenerTable.TryGetValue(callEvent, out listeners))
-            {
-                listeners = new List<IEventListener>();
-                ListenerTable.Add(callEvent, listeners);
-            }
-            return listeners;
-        }
-
-        public void AddListener(string callEvent, IEventListener listener)
-        {
-            List<IEventListener> listeners = GetListeners(callEvent);
-            listeners.Add(listener);
-        }
-
-        public void RemoveListener(string callEvent, IEventListener listener)
-        {
-            List<IEventListener> listeners = GetListeners(callEvent);
-            if (listeners.Count > 0) listeners.Remove(listener);
-            if (listeners.Count == 0)
-            {
-                listeners = null;
-                ListenerTable.Remove(callEvent);
-            }
-        }
-
-        public void RemoveAllListener(string callEvent)
-        {
-            List<IEventListener> listeners = GetListeners(callEvent);
-            listeners.Clear(); listeners = null;
-            ListenerTable.Remove(callEvent);
-        }
-
-        public void ClearAll()
-        {
-            foreach (var listeners in ListenerTable.Values)
-            {
-                listeners.Clear();
-            }
-            ListenerTable.Clear();
-        }
-
-        public void Notify(string callEvent, IEventArgs args)
-        {
-            List<IEventListener> listeners = GetListeners(callEvent);
-            for (int i = 0; i < listeners.Count; i++)
-            {
-                IEventListener listener = listeners[i];
-                try
-                {
-                    listener.OnEventCall(args);
-                }
-                catch (Exception e)
-                {
-                    ZLogger.Error(e);
-                }
-            }
-        }
-
-        public void DelayNotify(string callEvent, IEventArgs args, float delayTime)
-        {
-            DelayNotifyWarper oEventTick = new DelayNotifyWarper(callEvent, args, delayTime);
-            oEventTick.Open();
-        }
-
-        private void TickEventCall(DelayNotifyWarper eventTick)
-        {
-            eventTick.Close();
-            Notify(eventTick.CallEvent, eventTick.EventArgs);
-        }
-
-        protected class DelayNotifyWarper : ITick
-        {
-            public string CallEvent { get; private set; }
-            public IEventArgs EventArgs { get; private set; }
+            private string CallEvent { get; set; }
+            private IEventArgs EventArgs { get; set; }
             private float UseTime { get; set; }
             private float DelayTime { get; set; }
-            private Action<DelayNotifyWarper> TickCall { get; set; }
 
-            public DelayNotifyWarper(string callEvent, IEventArgs eventArgs, float delayTime)
+            public Action<string, IEventArgs, float> OnNotify { get; set; }
+
+            public DelayEvent(string callEvent, IEventArgs eventArgs, 
+                float delayTime, Action<string, IEventArgs, float> onNotify)
             {
                 CallEvent = callEvent;
                 EventArgs = eventArgs;
                 DelayTime = delayTime;
+                OnNotify = onNotify;
+                UseTime = 0;
             }
 
-            public void SetEventTickCall(Action<DelayNotifyWarper> tickCall)
+            public void ToNotify()
             {
-                TickCall = tickCall;
-            }
-
-            public void Open()
-            {
-                Tick.Attach(this);
-            }
-
-            public void Close()
-            {
-                Tick.Detach(this);
+                App.AttachTick(Loop);
             }
 
             public void Loop(float deltaTime)
             {
                 UseTime = MathUtil.Clamp(UseTime + deltaTime, 0, DelayTime);
-                if (UseTime == DelayTime) TickCall?.Invoke(this);
+                if (UseTime == DelayTime)
+                {
+                    App.DetachTick(Loop);
+                    OnNotify?.Invoke(CallEvent, EventArgs, 0);
+                }
+            }
+        }
+
+        protected Dictionary<string, List<IEventListener>> EventDict { get; set; }
+
+        public ZEvent()
+        {
+            EventDict = new Dictionary<string, List<IEventListener>>();
+        }
+
+        /// <summary>
+        /// 添加事件
+        /// </summary>
+        /// <param name="eventName">事件名称</param>
+        /// <param name="listener">事件监听者</param>
+        public void AddListener(string eventName, IEventListener listener)
+        {
+            List<IEventListener> listeners = null;
+            if (!EventDict.TryGetValue(eventName, out listeners))
+            {
+                listeners = new List<IEventListener>();
+                EventDict.Add(eventName, listeners);
+            }
+            if (!listeners.Contains(listener)) listeners.Add(listener);
+        }
+
+        /// <summary>
+        /// 移除指定的事件
+        /// </summary>
+        /// <param name="eventName">指定的事件名</param>
+        /// <param name="listener">指定的事件</param>
+        public void RemoveListener(string eventName, IEventListener listener)
+        {
+            List<IEventListener> listeners = null;
+            if (EventDict.TryGetValue(eventName, out listeners))
+            {
+                if (listeners.Count > 0)
+                {
+                    listeners.Remove(listener);
+                }
+                if (listeners.Count == 0)
+                {
+                    listeners = null;
+                    EventDict.Remove(eventName);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 移除列表中所有给定名称的事件
+        /// </summary>
+        /// <param name="eventName">指定事件的名称</param>
+        public void RemoveAllListener(string eventName)
+        {
+            List<IEventListener> listeners = null;
+            if (EventDict.TryGetValue(eventName, out listeners))
+            {
+                listeners.Clear();
+                listeners = null;
+                EventDict.Remove(eventName);
+            }
+        }
+
+        /// <summary>
+        /// 移除所有事件
+        /// </summary>
+        public void RemoveAllListener()
+        {
+            foreach (var listeners in EventDict.Values)
+            {
+                listeners.Clear();
+            }
+            EventDict.Clear();
+        }
+
+        public void Notify(string callEvent, IEventArgs args, float delayTime = 0)
+        {
+            List<IEventListener> listeners = null;
+            if (EventDict.TryGetValue(callEvent, out listeners))
+            {
+                if (delayTime < 0)
+                {
+                    for (int i = 0; i < listeners.Count; i++)
+                    {
+                        IEventListener listener = listeners[i];
+                        try { listener.OnNotify(args); }
+                        catch (Exception e) { ZLogger.Error(e); }
+                    }
+                }
+                else
+                {
+                    DelayEvent oDelayEvent = new DelayEvent(callEvent, args, delayTime, Notify);
+                    oDelayEvent.ToNotify();
+                }
             }
         }
     }
 
-    public class DelayCaller : IEventListener
+    public struct ZEventHelper : IEventListener
     {
-        public DelayCaller Listener { get; private set; }
+        private Action<IEventArgs> Callback { get; set; }
 
-        private Action<IEventArgs> EventCall { get; set; }
-
-        public DelayCaller(Action<IEventArgs> onEventCall)
+        public ZEventHelper(Action<IEventArgs> callback)
         {
-            EventCall = onEventCall;
+            Callback = callback;
         }
 
-        public void OnEventCall(IEventArgs args)
+        public void OnNotify(IEventArgs args)
         {
-            EventCall?.Invoke(args);
+            Callback?.Invoke(args);
         }
     }
 }

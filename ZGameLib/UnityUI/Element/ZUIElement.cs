@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ZGameLib.UnityUI.Exts
+namespace ZGameLib.UnityUI.Element
 {
     public abstract class ZUIElement : MonoBehaviour
     {

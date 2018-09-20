@@ -2,14 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using ZCSharpLib.Common;
+using System.Threading;
 using ZCSharpLib.Common.Provider;
+using ZCSharpLib.Tick;
 using ZCSharpLib.ZTThread;
 
 namespace ZCSharpLib
 {
     public class App
     {
+        /// <summary>
+        /// 时钟循环
+        /// </summary>
+        public static readonly Ticker Ticker = new Ticker();
+        /// <summary>
+        /// 主线程
+        /// </summary>
         public static readonly MainThread MainThread = new MainThread();
 
         #region 对象构造
@@ -105,9 +113,19 @@ namespace ZCSharpLib
         #endregion
 
         #region app循环
+        public static void AttachTick(Action<float> tick)
+        {
+            Ticker.Attach(tick);
+        }
+
+        public static void DetachTick(Action<float> tick)
+        {
+            Ticker.Detach(tick);
+        }
+
         public static void Loop(float deltaTime)
         {
-            Tick.Loop(deltaTime);
+            Ticker.Loop(deltaTime);
         }
         #endregion
     }

@@ -15,7 +15,7 @@ namespace ZCSharpLib.Features.Database
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class DbUnsaveAttribute : Attribute { }
 
-    public class DbMgr : ITick
+    public class DbMgr
     {
         private BaseDb BaseDatabase { get; set; }
         private DbStructure SQLStructure { get; set; }
@@ -53,7 +53,7 @@ namespace ZCSharpLib.Features.Database
 
         public void Open()
         {
-            Common.Tick.Attach(this);
+            App.AttachTick(Loop);
             Connect();
             IsExecute = true;
             Thread.Start();
@@ -61,7 +61,7 @@ namespace ZCSharpLib.Features.Database
 
         public void Close()
         {
-            Common.Tick.Detach(this);
+            App.DetachTick(Loop);
             IsExecute = false;
             Thread.Abort();
             Disconnect();

@@ -4,7 +4,7 @@ using ZCSharpLib.Common;
 
 namespace ZCSharpLib.Features.Web
 {
-    public class WebAllLoader : ITick
+    public class WebAllLoader
     {
         public class WebAssetDir
         {
@@ -143,13 +143,13 @@ namespace ZCSharpLib.Features.Web
         public void Start()
         {
             IsStart = true;
-            Tick.Attach(this);
+            App.AttachTick(Loop);
         }
 
         public void Close()
         {
             IsStart = false;
-            Tick.Detach(this);
+            App.DetachTick(Loop);
         }
 
         public void Loop(float deltaTime)

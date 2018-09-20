@@ -118,5 +118,10 @@ namespace ZCSharpLib.ZTUtils
             md5Str = md5Str.Replace("-", "");
             return md5Str;
         }
+
+        public static string CombinePath(string dir, string name)
+        {
+            return string.Format("{0}/{1}.asset", dir, name);
+        }
     }
 }

@@ -6,41 +6,31 @@ using System.Text;
 using UnityEngine;
 using ZCSharpLib;
 using ZCSharpLib.Common;
-using ZGameLib.UnityUI.Exts;
+using ZGameLib.UnityUI.Element;
 
 namespace ZGameLib.UnityUI
 {
-    public abstract class UIItem
+    public abstract class UIItem : IDisposable
     {
-        protected Dictionary<string, object> ItemTable { get; set; }
-        public GameObject CurObj { get; protected set; }
-        public bool IsShow { get; protected set; }
+        public bool IsOpened { get; protected set; }
+
+        public GameObject Entity { get; protected set; }
+
+        protected Dictionary<string, object> ElementDict { get; set; }
 
         public UIItem()
         {
-            ItemTable = new Dictionary<string, object>();
+            ElementDict = new Dictionary<string, object>();
         }
 
-        public virtual void Initialize()
-        {
-        }
+        public virtual void Initialize() { }
 
-        public virtual void Uninitialize()
-        {
-        }
+        public virtual void Uninitialize() { }
 
-        public virtual void SetParent(GameObject parent)
+        public virtual void SetupEntity(GameObject obj)
         {
-            CurObj.transform.SetParent(parent.transform);
-            CurObj.transform.localPosition = Vector3.zero;
-            CurObj.transform.localEulerAngles = Vector3.zero;
-            CurObj.transform.localScale = Vector3.one;
-        }
-
-        public virtual void Setup(GameObject obj)
-        {
-            CurObj = obj;
-            AssemblyElement(CurObj.transform);
+            Entity = obj;
+            AssemblyElement(Entity.transform);
         }
 
         protected virtual void AssemblyElement(Transform element, bool isFirst = true)
@@ -50,13 +40,13 @@ namespace ZGameLib.UnityUI
                 ZUIElement oElement = element.GetComponent<ZUIElement>();
                 if (oElement != null)
                 {
-                    if (ItemTable.ContainsKey(oElement.name))
+                    if (ElementDict.ContainsKey(oElement.name))
                     {
                         ZLogger.Error("{0}已经包含当前元素对象{1}", GetType().Name, oElement.name);
                     }
                     else
                     {
-                        ItemTable.Add(oElement.name, oElement.Get());
+                        ElementDict.Add(oElement.name, oElement.Get());
                     }
 
                     if (oElement.GetType() == typeof(ZUIItem)) return;
@@ -69,52 +59,92 @@ namespace ZGameLib.UnityUI
             }
         }
 
-        public T Get<T>(string elementName) where T : class
+        public object FindElement(string name)
         {
             object obj = null;
-            if (ItemTable.TryGetValue(elementName, out obj))
+            if (!ElementDict.TryGetValue(name, out obj))
             {
-                return obj as T;
+                ZLogger.Error("{0}没有找到元素 name={1}", GetType(), name);
             }
-            return null;
+            return obj;
         }
 
-        public virtual void Close()
+        public virtual void SetParent(GameObject parent)
         {
-            if (CurObj != null)
+            Entity.transform.SetParent(parent.transform);
+            Entity.transform.localPosition = Vector3.zero;
+            Entity.transform.localEulerAngles = Vector3.zero;
+            Entity.transform.localScale = Vector3.one;
+        }
+
+        protected LayerUI LayerUI { get; set; }
+
+        public virtual void ToLast()
+        {
+            LayerUI = LayerUI.Last;
+            ToLayer();
+        }
+
+        public virtual void ToFirst()
+        {
+            LayerUI = LayerUI.First;
+            ToLayer();
+        }
+
+        public virtual void ToLayer()
+        {
+            if (Entity != null)
             {
-                UnityEngine.Object.DestroyImmediate(CurObj);
+                if (LayerUI == LayerUI.First) Entity.transform.SetAsFirstSibling();
+                else if (LayerUI == LayerUI.Last) Entity.transform.SetAsLastSibling();
+                LayerUI = LayerUI.None;
             }
         }
 
-        public virtual void Show()
+        public virtual void Open()
         {
-            IsShow = true;
+            IsOpened = true;
+            Show();
+        }
 
+        protected virtual void Show()
+        {
+            if (Entity != null)
+            {
+                Entity.SetActive(true);
+            }
             OnShow();
-            if (CurObj != null)
-            {
-                CurObj.SetActive(true);
-            }
         }
 
         public virtual void OnShow()
         {
         }
 
-        public virtual void Hide()
+        public virtual void Close()
         {
-            IsShow = false;
+            IsOpened = false;
+            Hide();
+        }
 
-            OnHide();
-            if (CurObj != null)
+        protected virtual void Hide()
+        {
+            if (Entity != null)
             {
-                CurObj.SetActive(false);
+                Entity.SetActive(false);
             }
+            OnHide();
         }
 
         public virtual void OnHide()
         {
+        }
+
+        public void Dispose()
+        {
+            if (Entity != null)
+            {
+                UnityEngine.Object.DestroyImmediate(Entity);
+            }
         }
     }
 }

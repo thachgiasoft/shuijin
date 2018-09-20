@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-namespace ZCSharpLib.ZTEvent
+namespace ZGameLib.UnityUI.Element
 {
-    public interface IEventListener
+    public class ZItem : MonoBehaviour
     {
-        void OnNotify(IEventArgs args);
+
     }
 }

@@ -4,7 +4,7 @@ using ZCSharpLib.Common;
 
 namespace ZCSharpLib.Features.Model
 {
-    public abstract class BaseData : ZObject
+    public abstract class BaseData : ZEventObject
     {
         public string Guid { get; private set; }
 

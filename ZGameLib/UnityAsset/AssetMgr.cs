@@ -1,67 +1,73 @@
 ﻿using System.Collections.Generic;
 using ZGameLib.UnityAsset.Loader;
 using ZCSharpLib.Common;
+using System;
 
 namespace ZGameLib.UnityAsset
 {
     public class AssetMgr
     {
-        public AssetLoader AssetLoader { get; private set; }
-        private Dictionary<string, Asset> AssetTable { get; set; }
+        private Dictionary<string, Asset> AssetCache { get; set; }
+
+        public AssetQueue AssetQueue { get; private set; }
 
         public AssetMgr()
         {
-            AssetLoader = new AssetLoader();
-            AssetTable = new Dictionary<string, Asset>();
+            AssetQueue = new AssetQueue();
+            AssetCache = new Dictionary<string, Asset>();
         }
 
         public void Open()
         {
-            if (AssetLoader != null) AssetLoader.Open();
+            if (AssetQueue != null) AssetQueue.Open();
         }
 
         public void Close()
         {
-            if (AssetLoader != null) AssetLoader.Close();
+            if (AssetQueue != null) AssetQueue.Close();
         }
 
-        public Asset GetAsset(string url)
+        private Asset Find(string url)
         {
             Asset asset = null;
-            if (!AssetTable.TryGetValue(url, out asset)) { }
+            if (!AssetCache.TryGetValue(url, out asset)) { }
             return asset;
         }
 
-        public Asset Make(string url)
+        public void Load(string url, Action<Asset> callback = null)
         {
-            Asset asset = GetAsset(url);
+            Asset asset = Find(url);
             if (asset == null)
             {
                 asset = new Asset(url);
-                AssetTable.Add(url, asset);
-                AssetLoader.Add(asset);
+                asset.AddEvent(callback);
+                AssetCache.Add(url, asset);
+                AssetQueue.Add(asset);
             }
-            return asset;
+            else
+            {
+                callback(asset);
+            }
         }
 
-        public void Unmake(string url)
+        public void Unload(string url)
         {
-            Asset asset = GetAsset(url);
+            Asset asset = Find(url);
             if (asset != null)
             {
-                AssetLoader.Remove(asset);
+                AssetQueue.Remove(asset);
                 asset.Dispose();
             }
-            AssetTable.Remove(url);
+            AssetCache.Remove(url);
         }
 
-        public AssetAllLoader LoadAll(string[] urls)
+        public AssetAllQueue LoadAll(string[] urls)
         {
-            AssetAllLoader allLoader = new AssetAllLoader();
+            AssetAllQueue allLoader = new AssetAllQueue();
             for (int i = 0; i < urls.Length; i++)
             {
                 string url = urls[i];
-                Asset asset = GetAsset(url);
+                Asset asset = Find(url);
                 if (asset == null) { allLoader.AddLoad(url); }
                 else
                 {
@@ -73,11 +79,11 @@ namespace ZGameLib.UnityAsset
 
         public void UnLoadAll()
         {
-            foreach (var item in AssetTable.Values)
+            foreach (var item in AssetCache.Values)
             {
                 item.Dispose();
             }
-            AssetTable.Clear();
+            AssetCache.Clear();
         }
     }
 }

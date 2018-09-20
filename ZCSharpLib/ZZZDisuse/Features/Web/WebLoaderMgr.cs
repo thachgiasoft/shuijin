@@ -3,7 +3,7 @@ using ZCSharpLib.Common;
 
 namespace ZCSharpLib.Features.Web
 {
-    public class WebLoaderMgr : ITick
+    public class WebLoaderMgr
     {
         private List<WebLoader> Loaders { get; set; }
         private WebLoader CurLoader { get; set; }
@@ -15,12 +15,12 @@ namespace ZCSharpLib.Features.Web
 
         public void Open()
         {
-            Common.Tick.Attach(this);
+            App.AttachTick(Loop);
         }
 
         public void Close()
         {
-            Common.Tick.Detach(this);
+            App.DetachTick(Loop);
         }
 
         public void ClearAll()

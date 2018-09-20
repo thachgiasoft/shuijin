@@ -11,7 +11,7 @@ namespace ZGameLib.UnityUI
 {
     public class UIMgr
     {
-        private Dictionary<string, BaseUI> UITable { get; set; }
+        private Dictionary<string, UIItem> UIDict { get; set; }
 
         private Transform UIRoot { get; set; }
 
@@ -19,155 +19,59 @@ namespace ZGameLib.UnityUI
 
         public UIMgr()
         {
-            UITable = new Dictionary<string, BaseUI>();
+            UIDict = new Dictionary<string, UIItem>();
         }
 
-        public void Setup(Transform root, string assetPath)
+        public UIItem Find(string typeName)
         {
-            UIRoot = root;
-            AssetPath = assetPath;
-        }
-
-        private BaseUI Open(string name)
-        {
-            BaseUI uibase = null;
-            if (UITable.TryGetValue(name, out uibase))
+            UIItem item = null;
+            if (!UIDict.TryGetValue(typeName, out item))
             {
-                uibase.Show();
+                ZLogger.Error("没有找到当前名称[{0}]的UI", typeName);
             }
-            return uibase;
+            return item;
         }
 
-        public BaseUI Find(string name)
-        {
-            BaseUI uibase = null;
-            if (!UITable.TryGetValue(name, out uibase))
-            {
-            }
-            return uibase;
-        }
-
-        public T Open<T>() where T : BaseUI
+        public T Open<T>() where T : UIItem
         {
             return Open(typeof(T)) as T;
         }
 
-        public BaseUI Open(Type type)
+        public UIItem Open(Type type)
         {
-            BaseUI uibase = Find(type.Name);
+            UIItem uibase = Find(type.Name);
             if (uibase == null)
             {
-                uibase = Activator.CreateInstance(type) as BaseUI;
-                UITable.Add(type.Name, uibase);
-                string url = AssetPath + "/" + type.Name;
-                LoadUI(url);
+                uibase = Activator.CreateInstance(type) as UIItem;
+                UIDict.Add(type.Name, uibase);
             }
             Open(type.Name);
             return uibase;
         }
 
-        public virtual void LoadUI(string url)
+        private UIItem Open(string typeName)
         {
-            Asset oAsset = App.Singleton<AssetMgr>().Make(url);
-            if (oAsset.IsDone) OnLoadedHandler(oAsset);
-            else oAsset.SetEventLoaded(OnLoadedHandler);
+            UIItem item = Find(typeName);
+            if (item != null) item.Open();
+            return item;
         }
 
-        private void OnLoadedHandler(Asset oAsset)
-        {
-            if (oAsset.IsSucess)
-            {
-                GameObject oPrefab = oAsset.GetMainAsset() as GameObject;
-                GameObject ins = UnityEngine.Object.Instantiate(oPrefab) as GameObject;
-                ins.name = oPrefab.name;
-                Setup(ins);
-            }
-            else
-            {
-                ZLogger.Error("UI资源没有下载完成, 无法创建! 资源地址: {0}", oAsset.Url);
-            }
-        }
-
-        private void UnloadUI(string url)
-        {
-            App.Singleton<AssetMgr>().Unmake(url);
-        }
-
-        private void Setup(GameObject obj)
-        {
-            BaseUI oBaseUI = null;
-            if (UITable.TryGetValue(obj.name, out oBaseUI))
-            {
-                oBaseUI.Setup(obj as GameObject);
-                oBaseUI.SetParent(UIRoot.gameObject);
-                oBaseUI.Initialize();
-                if (oBaseUI.IsShow)
-                {
-                    oBaseUI.Show();
-                }
-                else
-                {
-                    oBaseUI.Hide();
-                }
-            }
-            else
-            {
-                UnityEngine.Object.DestroyImmediate(obj);
-                string url = AssetPath + "/" + obj.name;
-                UnloadUI(url);
-            }
-        }
-
-        public T Close<T>(bool isDisposable = false) where T : BaseUI
+        public T Close<T>(bool isDisposable = false) where T : UIBase
         {
             return Close(typeof(T)) as T;
         }
 
-        private BaseUI Close(string name, bool isDisposable = false)
+        public UIItem Close(Type type)
         {
-            BaseUI uibase = null;
-            if (!UITable.TryGetValue(name, out uibase))
-            {
-                ZLogger.Error("没有找到UI：{0}!", name);
-            }
-            if (uibase.IsShow)
-            {
-                uibase.Hide();
-            }
-            if (isDisposable)
-            {
-                UITable.Remove(name);
-                uibase.Uninitialize();
-                uibase.Close();
-            }
-            return uibase;
+            UIItem item = Close(type.Name);
+            return item;
         }
 
-        public BaseUI Close(Type type, bool isDisposable = false)
+        private UIItem Close(string typeName)
         {
-            BaseUI uibase = Close(type.Name, isDisposable);
-            return uibase;
-        }
-
-        public void CloseAll(params Type[] without)
-        {
-            CloseAndDisposeAll(false, without);
-        }
-
-        public void CloseAndDisposeAll(bool isDispose = false, params Type[] without)
-        {
-            foreach (var item in UITable.Keys)
-            {
-                bool isNeed = true;
-                if (without != null)
-                {
-                    for (int i = 0; i < without.Length; i++)
-                    {
-                        if (item == without[i].Name) { isNeed = false; break; }
-                    }
-                }
-                if (isNeed) Close(item, isDispose);
-            }
+            UIItem item = Find(typeName);
+            if (item != null) item.Close();
+            return item;
         }
     }
 }

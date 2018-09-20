@@ -38,3 +38,9 @@ D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\Z
 D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.csproj.CoreCompileInputs.cache
 D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.dll
 D:\Users\Joyan\Desktop\Common\Work\LaoGong\Programs\Repos\ZCSharpLib\obj\Debug\ZCSharpLib.pdb
+F:\work\repos\shuijin\ZCSharpLib\obj\Debug\ZCSharpLib.csproj.CoreCompileInputs.cache
+F:\work\repos\shuijin\ZCSharpLib\bin\Debug\ZCSharpLib.dll
+F:\work\repos\shuijin\ZCSharpLib\bin\Debug\ZCSharpLib.pdb
+F:\work\repos\shuijin\ZCSharpLib\obj\Debug\ZCSharpLib.dll
+F:\work\repos\shuijin\ZCSharpLib\obj\Debug\ZCSharpLib.pdb
+F:\work\repos\shuijin\ZCSharpLib\obj\Debug\ZCSharpLib.csprojResolveAssemblyReference.cache

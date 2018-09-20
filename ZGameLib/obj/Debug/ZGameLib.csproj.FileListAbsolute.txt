@@ -31,3 +31,14 @@ F:\work\ZGameLib\bin\Debug\ZCSharpLib.pdb
 F:\work\ZGameLib\obj\Debug\ZGameLib.csproj.CopyComplete
 F:\work\ZGameLib\bin\Debug\UnityEngine.dll
 F:\work\ZGameLib\bin\Debug\UnityEngine.xml
+F:\work\repos\shuijin\ZGameLib\bin\Debug\ZGameLib.dll
+F:\work\repos\shuijin\ZGameLib\bin\Debug\ZGameLib.pdb
+F:\work\repos\shuijin\ZGameLib\bin\Debug\UnityEngine.dll
+F:\work\repos\shuijin\ZGameLib\bin\Debug\ZCSharpLib.dll
+F:\work\repos\shuijin\ZGameLib\bin\Debug\ZCSharpLib.pdb
+F:\work\repos\shuijin\ZGameLib\bin\Debug\UnityEngine.xml
+F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csprojResolveAssemblyReference.cache
+F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CoreCompileInputs.cache
+F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CopyComplete
+F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.dll
+F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.pdb

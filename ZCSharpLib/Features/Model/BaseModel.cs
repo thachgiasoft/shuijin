@@ -9,7 +9,7 @@ using ZCSharpLib.ZTEvent;
 
 namespace ZCSharpLib.Features.Model
 {
-    public abstract class ModelObject : ZObject
+    public abstract class ModelObject : ZEventObject
     {
         public abstract int DataCount { get; }
         public abstract Type DataType { get; }
@@ -31,7 +31,6 @@ namespace ZCSharpLib.Features.Model
         {
             get { return typeof(T); }
         }
-
 
         public BaseModel()
         {

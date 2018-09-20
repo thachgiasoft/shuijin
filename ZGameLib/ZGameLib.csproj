@@ -43,18 +43,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.cs" />
     <Compile Include="UnityAsset\AssetProvider.cs" />
-    <Compile Include="UnityUI\BaseUI.cs" />
+    <Compile Include="UnityUI\Enums.cs" />
+    <Compile Include="UnityUI\UIBase.cs" />
+    <Compile Include="UnityUI\Element\ZItem.cs" />
     <Compile Include="UnityUI\UIItem.cs" />
-    <Compile Include="UnityUI\Exts\ZItem.cs" />
     <Compile Include="UnityUI\UIMgr.cs" />
     <Compile Include="UnityUI\UIMgrProvider.cs" />
-    <Compile Include="UnityUI\Exts\ZUIItem.cs" />
-    <Compile Include="UnityUI\Exts\ZUIElement.cs" />
+    <Compile Include="UnityUI\Element\ZUIItem.cs" />
+    <Compile Include="UnityUI\Element\ZUIElement.cs" />
     <Compile Include="UnityAsync\UnityAsync.cs" />
     <Compile Include="UnityAsync\UnityAsyncProvider.cs" />
-    <Compile Include="UnityAsset\Loader\AssetAllLoader.cs" />
-    <Compile Include="UnityAsset\Loader\AssetLoader.cs" />
+    <Compile Include="UnityAsset\AssetAllQueue.cs" />
+    <Compile Include="UnityAsset\AssetQueue.cs" />
     <Compile Include="UnityAsset\Asset.cs" />
     <Compile Include="UnityAsset\AssetMgr.cs" />
     <Compile Include="UnityLog\UnityLogger.cs" />
@@ -67,11 +69,12 @@
       <Name>ZCSharpLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)ZGameLib.dll" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZGameLib.dll"
-copy "$(TargetDir)ZGameLib.pdb" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZGameLib.pdb"
-copy "$(TargetDir)ZCSharpLib.dll" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZCSharpLib.dll"
-copy "$(TargetDir)ZCSharpLib.pdb" "F:\UnityProject\ZhongTGT\Runtime\Assets\Scripts\ZCSharpLib.pdb"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)ZGameLib.dll" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZGameLib.dll"
+copy "$(TargetDir)ZGameLib.pdb" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZGameLib.pdb"
+copy "$(TargetDir)ZCSharpLib.dll" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZCSharpLib.dll"
+copy "$(TargetDir)ZCSharpLib.pdb" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZCSharpLib.pdb"</PostBuildEvent>
   </PropertyGroup>
 </Project>

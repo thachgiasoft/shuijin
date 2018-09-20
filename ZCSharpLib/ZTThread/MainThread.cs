@@ -11,22 +11,20 @@ namespace ZCSharpLib.ZTThread
     {
         public int ThreadID { get; private set; }
         private ThreadSync ThreadSync { get; set; }
-        private TickLoop Loop { get; set; }
 
         public MainThread()
         {
             ThreadID = Thread.CurrentThread.ManagedThreadId;
             ThreadSync = new ThreadSync();
-            Loop = new TickLoop(ThreadLoop);
-            Loop.Start();
+            App.AttachTick(Loop);
         }
 
         ~MainThread()
         {
-            Loop.Close();
+            App.DetachTick(Loop);
         }
 
-        public void ThreadLoop(float deltaTime)
+        public void Loop(float deltaTime)
         {
             ThreadSync.Execute();
         }

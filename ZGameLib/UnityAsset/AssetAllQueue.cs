@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZCSharpLib;
 using ZCSharpLib.Common;
 
 namespace ZGameLib.UnityAsset.Loader
@@ -7,7 +8,7 @@ namespace ZGameLib.UnityAsset.Loader
     /// <summary>
     /// 所以资源一起加载的类
     /// </summary>
-    public class AssetAllLoader : ITick
+    public class AssetAllQueue
     {
         public int LoadCount { get; protected set; }
         public int LoadIndex { get; protected set; }
@@ -17,10 +18,8 @@ namespace ZGameLib.UnityAsset.Loader
 
         private float mTotalProgress;
         private List<Asset> mItems;
-        private Action<AssetAllLoader> mOnAllLoading;
-        private Action<AssetAllLoader> mOnAllLoaded;
-        private Action<Asset> mOnSingleLoading;
-        private Action<Asset> mOnSingleLoaded;
+        private Action<AssetAllQueue> mAllEvent;
+        private Action<Asset> mSingleEvent;
 
         private Asset mCurItem;
         private bool mIsStart;
@@ -30,29 +29,19 @@ namespace ZGameLib.UnityAsset.Loader
         /// </summary>
         /// <param name="allLoading">所有资源正在加载中的回掉方法</param>
         /// <param name="allLoaded">所有资源加载完成后的回掉方法</param>
-        public AssetAllLoader()
+        public AssetAllQueue()
         {
             mItems = new List<Asset>();
         }
 
-        public void SetEventAllLoading(Action<AssetAllLoader> allLoading)
+        public void SetEventAllLoading(Action<AssetAllQueue> allLoading)
         {
-            mOnAllLoading = allLoading;
-        }
-
-        public void SetEventAllLoaded(Action<AssetAllLoader> allLoaded)
-        {
-            mOnAllLoaded = allLoaded;
+            mAllEvent = allLoading;
         }
 
         public void SetEventSingleLoading(Action<Asset> loading)
         {
-            mOnSingleLoading = loading;
-        }
-
-        public void SetEventSingleLoaded(Action<Asset> loaded)
-        {
-            mOnSingleLoaded = loaded;
+            mSingleEvent = loading;
         }
 
         /// <summary>
@@ -64,20 +53,14 @@ namespace ZGameLib.UnityAsset.Loader
         {
             LoadCount = LoadCount + 1;
             Asset loader = new Asset(path);
-            loader.SetEventLoading(OnSingleLoadingHandler);
-            loader.SetEventLoaded(OnSingleLoadedHandler);
+            loader.AddEvent(OnSingleLoadingHandler);
             mItems.Add(loader);
         }
 
         private void OnSingleLoadingHandler(Asset loader)
         {
-            mOnSingleLoading?.Invoke(loader);
+            mSingleEvent?.Invoke(loader);
             AllLoading(loader);
-        }
-
-        private void OnSingleLoadedHandler(Asset loader)
-        {
-            mOnSingleLoaded?.Invoke(loader);
         }
 
         private void AllLoading(Asset loader)
@@ -87,8 +70,7 @@ namespace ZGameLib.UnityAsset.Loader
             FinalProgress = mTotalProgress / LoadCount;
             if (loader.IsDone) LoadIndex = LoadIndex + 1;
             if (LoadIndex == LoadCount) IsDone = true;
-            mOnAllLoading?.Invoke(this);
-            if (IsDone) { mOnAllLoaded?.Invoke(this); }
+            mAllEvent?.Invoke(this);
         }
 
         /// <summary>
@@ -100,18 +82,17 @@ namespace ZGameLib.UnityAsset.Loader
             // 当加载对象为0时直接处理回调
             if (mItems.Count == 0)
             {
-                mOnAllLoaded?.Invoke(this);
-                mOnAllLoading?.Invoke(this);
+                mAllEvent?.Invoke(this);
             }
             else
             {
-                ZCSharpLib.Common.Tick.Attach(this);
+                App.AttachTick(Loop);
             }
         }
 
         public void Close()
         {
-            ZCSharpLib.Common.Tick.Detach(this);
+            App.DetachTick(Loop);
         }
 
         public void Loop(float deltaTime)

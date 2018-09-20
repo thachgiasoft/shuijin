@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using ZCSharpLib;
 using ZCSharpLib.Common;
 
-namespace ZGameLib.UnityAsset.Loader
+namespace ZGameLib.UnityAsset
 {
-    public class AssetLoader : ITick
+    public class AssetQueue
     {
-        private AssetLoaderCtrl[] Ctrls;
+        private AssetQueueCtrl[] Ctrls;
 
-        public AssetLoader()
+        public AssetQueue()
         {
             Asset.AssetType[] assetTypes = Enum.GetValues(typeof(Asset.AssetType)) as Asset.AssetType[];
-            Ctrls = new AssetLoaderCtrl[assetTypes.Length];
+            Ctrls = new AssetQueueCtrl[assetTypes.Length];
             for (int i = 0; i < Ctrls.Length; i++)
             {
-                Ctrls[i] = new AssetLoaderCtrl(assetTypes[i]);
+                Ctrls[i] = new AssetQueueCtrl(assetTypes[i]);
             }
         }
 
         public void Open()
         {
-            ZCSharpLib.Common.Tick.Attach(this);
+            App.AttachTick(Loop);
         }
 
         public void Close()
         {
-            ZCSharpLib.Common.Tick.Detach(this);
+            App.DetachTick(Loop);
         }
 
         public void Loop(float deltaTime)
@@ -36,12 +37,12 @@ namespace ZGameLib.UnityAsset.Loader
             }
         }
 
-        public AssetLoaderCtrl GetLoaderCtrl(Asset loader)
+        public AssetQueueCtrl GetLoaderCtrl(Asset loader)
         {
-            AssetLoaderCtrl oCtrl = null;
+            AssetQueueCtrl oCtrl = null;
             for (int i = 0; i < Ctrls.Length; i++)
             {
-                AssetLoaderCtrl ctrl = Ctrls[i];
+                AssetQueueCtrl ctrl = Ctrls[i];
                 if (ctrl.AssetType == loader.ThisType)
                 {
                     oCtrl = ctrl;
@@ -54,24 +55,24 @@ namespace ZGameLib.UnityAsset.Loader
 
         public void Add(Asset loader)
         {
-            AssetLoaderCtrl ctrl = GetLoaderCtrl(loader);
+            AssetQueueCtrl ctrl = GetLoaderCtrl(loader);
             if (ctrl != null) ctrl.Add(loader);
         }
 
         public void Remove(Asset loader)
         {
-            AssetLoaderCtrl ctrl = GetLoaderCtrl(loader);
+            AssetQueueCtrl ctrl = GetLoaderCtrl(loader);
             if (ctrl != null) ctrl.Remove(loader);
         }
     }
 
-    public class AssetLoaderCtrl
+    public class AssetQueueCtrl
     {
         public Asset.AssetType AssetType { get; private set; }
         private Asset CurLoader { get; set; }
         private List<Asset> ReadyLoaders { get; set; }
 
-        public AssetLoaderCtrl(Asset.AssetType assetType)
+        public AssetQueueCtrl(Asset.AssetType assetType)
         {
             AssetType = assetType;
             ReadyLoaders = new List<Asset>();
