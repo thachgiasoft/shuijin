@@ -24,13 +24,16 @@ namespace ZGameLib.UnityUI
         }
 
         public virtual void Initialize() { }
-
+        public virtual void OnInitialize() { }
         public virtual void Uninitialize() { }
+        public virtual void OnUninitialize() { }
 
         public virtual void SetupEntity(GameObject obj)
         {
             Entity = obj;
             AssemblyElement(Entity.transform);
+            Initialize();
+            OnInitialize();
         }
 
         protected virtual void AssemblyElement(Transform element, bool isFirst = true)
