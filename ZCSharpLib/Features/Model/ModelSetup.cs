@@ -12,7 +12,7 @@ namespace ZCSharpLib.Features.Model
         public ModelSetup()
         {
             Models = new List<ModelObject>();
-            Type[] oTypes = CommUtil.GetTypes();
+            Type[] oTypes = ZCommUtil.GetTypes();
             for (int i = 0; i < oTypes.Length; i++)
             {
                 Type type = oTypes[i];

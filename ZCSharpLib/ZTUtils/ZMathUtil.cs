@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ZCSharpLib.ZTUtils
 {
-    public class MathUtil
+    public class ZMathUtil
     {
         public static float Clamp(float value, float min, float max)
         {

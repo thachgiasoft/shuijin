@@ -37,7 +37,7 @@ namespace ZCSharpLib.Features.Database
         {
             SQLStructure = new DbStructure();
             ExeucteQueue = new Queue<BaseDbOperate>();
-            Type[] types = CommUtil.GetTypes();
+            Type[] types = ZCommUtil.GetTypes();
             for (int i = 0; i < types.Length; i++)
             {
                 Type type = types[i];

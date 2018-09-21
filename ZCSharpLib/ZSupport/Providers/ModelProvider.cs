@@ -22,7 +22,7 @@ public class ModelProvider : IZServiceProvider
 
     public void Register()
     {
-        Type[] types = CommUtil.GetTypes();
+        Type[] types = ZCommUtil.GetTypes();
         foreach (Type type in types)
         {
             if (type.IsClass && type.BaseType != null && type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() == typeof(BaseModel<>))

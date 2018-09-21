@@ -173,11 +173,11 @@
     <Compile Include="Common\ZLogger.cs" />
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Features\Tmplate\Tpl.cs" />
-    <Compile Include="ZTUtils\FileUtil.cs" />
-    <Compile Include="ZTUtils\MathUtil.cs" />
+    <Compile Include="ZTUtils\ZFileUtil.cs" />
+    <Compile Include="ZTUtils\ZMathUtil.cs" />
     <Compile Include="Features\SharpZip\Zip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZTUtils\CommUtil.cs" />
+    <Compile Include="ZTUtils\ZCommUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

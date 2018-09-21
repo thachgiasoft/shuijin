@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ZCSharpLib.ZTUtils
 {
-    public class CommUtil
+    public class ZCommUtil
     {
         /// <summary>
         /// 获取程序集的类型

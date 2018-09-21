@@ -22,7 +22,7 @@ namespace ZCSharpLib.Features.NetWork.Protocol
 
         private void AssemblyPacket()
         {
-            Type[] types = CommUtil.GetTypes();
+            Type[] types = ZCommUtil.GetTypes();
             for (int i = 0; i < types.Length; i++)
             {
                 Type type = types[i];

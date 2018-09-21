@@ -36,7 +36,7 @@ namespace ZCSharpLib.ZTEvent
 
             public void Loop(float deltaTime)
             {
-                UseTime = MathUtil.Clamp(UseTime + deltaTime, 0, DelayTime);
+                UseTime = ZMathUtil.Clamp(UseTime + deltaTime, 0, DelayTime);
                 if (UseTime == DelayTime)
                 {
                     App.DetachTick(Loop);

@@ -47,7 +47,6 @@
     <Compile Include="UnityAsset\AssetProvider.cs" />
     <Compile Include="UnityUI\Enums.cs" />
     <Compile Include="UnityUI\UIBase.cs" />
-    <Compile Include="UnityUI\Element\ZItem.cs" />
     <Compile Include="UnityUI\UIItem.cs" />
     <Compile Include="UnityUI\UIMgr.cs" />
     <Compile Include="UnityUI\UIMgrProvider.cs" />
@@ -75,6 +74,11 @@
     <PostBuildEvent>copy "$(TargetDir)ZGameLib.dll" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZGameLib.dll"
 copy "$(TargetDir)ZGameLib.pdb" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZGameLib.pdb"
 copy "$(TargetDir)ZCSharpLib.dll" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZCSharpLib.dll"
-copy "$(TargetDir)ZCSharpLib.pdb" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZCSharpLib.pdb"</PostBuildEvent>
+copy "$(TargetDir)ZCSharpLib.pdb" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZCSharpLib.pdb"
+
+copy "$(TargetDir)ZGameLib.dll" "F:\work\unity\PJiangHu\runtime\Assets\Scripts\ZGameLib.dll"
+copy "$(TargetDir)ZGameLib.pdb" "F:\work\unity\PJiangHu\runtime\Assets\Scripts\ZGameLib.pdb"
+copy "$(TargetDir)ZCSharpLib.dll" "F:\work\unity\PJiangHu\runtime\Assets\Scripts\ZCSharpLib.dll"
+copy "$(TargetDir)ZCSharpLib.pdb" "F:\work\unity\PJiangHu\runtime\Assets\Scripts\ZCSharpLib.pdb"</PostBuildEvent>
   </PropertyGroup>
 </Project>

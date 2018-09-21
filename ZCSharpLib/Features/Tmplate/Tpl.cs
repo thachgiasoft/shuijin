@@ -19,7 +19,7 @@ namespace ZCSharpLib.Features.Tmplate
 
         public static void Initialize()
         {
-            Type[] types = CommUtil.GetTypes();
+            Type[] types = ZCommUtil.GetTypes();
             Dictionary<string, Type> allTypes = new Dictionary<string, Type>();
             for (int i = 0; i < types.Length; i++)
             {

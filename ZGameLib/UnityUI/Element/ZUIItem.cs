@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace ZGameLib.UnityUI.Element
 {
-    [RequireComponent(typeof(ZItem))]
     public class ZUIItem : ZUIElement
     {
-        public override object Get()
+        public override Object Get()
         {
             return gameObject;
         }
