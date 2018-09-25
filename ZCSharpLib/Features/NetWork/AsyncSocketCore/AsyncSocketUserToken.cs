@@ -84,7 +84,7 @@ namespace ZCSharpLib.Features.NetWork.AsyncSocketCore
 
                 if ((packetLength > 10 * 1024 * 1024) | (buffer.Length > 10 * 1024 * 1024)) //最大Buffer异常保护
                 {
-                    ZLogger.Error("内存超出, 数据不进行操作, 关闭远程连接");
+                    App.Logger.Error("内存超出, 数据不进行操作, 关闭远程连接");
                     return false;
                 }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ZCSharpLib.ZTUtils;
 
 namespace ZCSharpLib.Common
 {
@@ -10,7 +11,7 @@ namespace ZCSharpLib.Common
         void Error(string msg);
 	};
 
-	public class ZLogger
+	public class Logger
     {
         public enum LoggerChannel
         {
@@ -23,44 +24,49 @@ namespace ZCSharpLib.Common
             NUM
         }
 
-        private static List<ILoggerListener> Listeners = new List<ILoggerListener>();
+        private List<ILoggerListener> Listeners;
 
-        public static void AddListener(ILoggerListener listener)
+        public Logger()
         {
-            Listeners.Add(listener);
+            Listeners = new List<ILoggerListener>();
+            Type[] types = ZCommUtil.GetTypes();
+            for (int i = 0; i < types.Length; i++)
+            {
+                Type type = types[i];
+                if (type.IsClass && type.GetInterface(typeof(ILoggerListener).Name) != null)
+                {
+                    ILoggerListener listener = Activator.CreateInstance(type) as ILoggerListener;
+                    Listeners.Add(listener);
+                }
+            }
         }
 
-        public static void RemoveListener(ILoggerListener listener)
-        {
-            Listeners.Remove(listener);
-        }
-
-        public static void Debug(object msg, params object[] args)
+        public void Debug(object msg, params object[] args)
         {
             Log(string.Format(msg.ToString(), args), LoggerChannel.DEBUG, false);
         }
 
-        public static void Warning(object msg, params object[] args)
+        public void Warning(object msg, params object[] args)
         {
             Log(string.Format(msg.ToString(), args), LoggerChannel.WARNING, false);
         }
 
-        public static void Info(object msg, params object[] args)
+        public void Info(object msg, params object[] args)
         {
             Log(string.Format(msg.ToString(), args), LoggerChannel.INFO, false);
         }
 
-        public static void NetMsg(object msg, params object[] args)
+        public void NetMsg(object msg, params object[] args)
         {
             Log(string.Format(msg.ToString(), args), LoggerChannel.NETMSG, false);
         }
 
-        public static void Error(object msg, params object[] args)
+        public void Error(object msg, params object[] args)
         {
             Log(string.Format(msg.ToString(), args), LoggerChannel.ERROR, false);
         }
 
-		private static void Log(string msg, LoggerChannel channel, bool simpleMode)
+		private void Log(string msg, LoggerChannel channel, bool simpleMode)
 		{
             string outputMsg = string.Empty;
 			if(simpleMode){

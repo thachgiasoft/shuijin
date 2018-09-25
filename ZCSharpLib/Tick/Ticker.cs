@@ -22,7 +22,7 @@ namespace ZCSharpLib.Tick
 
         public void Detach(Action<float> tick)
         {
-            if (!TickList.Contains(tick))
+            if (TickList.Contains(tick))
             {
                 TickList.Remove(tick);
             }

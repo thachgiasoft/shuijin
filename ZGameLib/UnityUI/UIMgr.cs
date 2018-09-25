@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using ZCSharpLib;
-using ZCSharpLib.Common;
-using ZGameLib.UnityAsset;
 
 namespace ZGameLib.UnityUI
 {
@@ -25,10 +20,7 @@ namespace ZGameLib.UnityUI
         public UIItem Find(string typeName)
         {
             UIItem item = null;
-            if (!UIDict.TryGetValue(typeName, out item))
-            {
-                ZLogger.Error("没有找到当前名称[{0}]的UI", typeName);
-            }
+            if (UIDict.TryGetValue(typeName, out item)){}
             return item;
         }
 
@@ -39,14 +31,18 @@ namespace ZGameLib.UnityUI
 
         public UIItem Open(Type type)
         {
-            UIItem uibase = Find(type.Name);
-            if (uibase == null)
+            UIItem item = Find(type.Name);
+            if (item == null)
             {
-                uibase = Activator.CreateInstance(type) as UIItem;
-                UIDict.Add(type.Name, uibase);
+                item = Activator.CreateInstance(type) as UIItem;
+                item.OnLayerChanged = (t) => 
+                {
+                    Global.UnityUI.Root2D.gameObject.SendMessage("OnLayerChanged", SendMessageOptions.DontRequireReceiver);
+                };
+                UIDict.Add(type.Name, item);
             }
             Open(type.Name);
-            return uibase;
+            return item;
         }
 
         private UIItem Open(string typeName)
@@ -56,7 +52,7 @@ namespace ZGameLib.UnityUI
             return item;
         }
 
-        public T Close<T>(bool isDisposable = false) where T : UIBase
+        public T Close<T>() where T : UIBase
         {
             return Close(typeof(T)) as T;
         }

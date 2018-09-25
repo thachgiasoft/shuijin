@@ -5,7 +5,7 @@ using ZCSharpLib.Common;
 
 namespace ZGameLib.UnityAsset
 {
-    public class AssetQueue
+    public class AssetQueue : Any
     {
         private AssetQueueCtrl[] Ctrls;
 
@@ -17,16 +17,7 @@ namespace ZGameLib.UnityAsset
             {
                 Ctrls[i] = new AssetQueueCtrl(assetTypes[i]);
             }
-        }
-
-        public void Open()
-        {
             App.AttachTick(Loop);
-        }
-
-        public void Close()
-        {
-            App.DetachTick(Loop);
         }
 
         public void Loop(float deltaTime)
@@ -49,7 +40,10 @@ namespace ZGameLib.UnityAsset
                     break;
                 }
             }
-            if (oCtrl == null) ZLogger.Error("没有找到资源url={0}对应的资源类型type={1}", loader.Url, loader.ThisType);
+            if (oCtrl == null)
+            {
+                App.Logger.Error("没有找到资源url={0}对应的资源类型type={1}", loader.Url, loader.ThisType);
+            }
             return oCtrl;
         }
 
@@ -63,6 +57,12 @@ namespace ZGameLib.UnityAsset
         {
             AssetQueueCtrl ctrl = GetLoaderCtrl(loader);
             if (ctrl != null) ctrl.Remove(loader);
+        }
+
+        protected override void DoManagedObjectDispose()
+        {
+            base.DoManagedObjectDispose();
+            App.DetachTick(Loop);
         }
     }
 
@@ -111,14 +111,13 @@ namespace ZGameLib.UnityAsset
                 {
                     CurLoader = ReadyLoaders[0];
                     ReadyLoaders.RemoveAt(0);
-                    CurLoader.StartLoad();
+                    CurLoader.Get();
                 }
             }
             if (CurLoader != null)
             {
                 if (CurLoader.IsDone)
                 {
-                    CurLoader.CloseLoad();
                     CurLoader = null;
                 }
             }

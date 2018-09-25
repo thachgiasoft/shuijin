@@ -125,7 +125,7 @@ namespace ZCSharpLib.Features.SharpZip
             catch (Exception e)
             {
                 IsSucess = false;
-                ZLogger.Error("压缩出错:{0}\n{1}", SrcPath, e.StackTrace);
+                App.Logger.Error("压缩出错:{0}\n{1}", SrcPath, e.StackTrace);
             }
 
             if (IsSucess)
@@ -209,7 +209,7 @@ namespace ZCSharpLib.Features.SharpZip
             catch (Exception e)
             {
                 IsSucess = false;
-                ZLogger.Error("解压出错:{0}\n{1}", SrcPath, e.ToString());
+                App.Logger.Error("解压出错:{0}\n{1}", SrcPath, e.ToString());
             }
             if (IsSucess)
             {

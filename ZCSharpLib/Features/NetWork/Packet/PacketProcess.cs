@@ -66,7 +66,7 @@ namespace ZCSharpLib.Features.NetWork.Protocol
                     }
                     catch(Exception e)
                     {
-                        ZLogger.Error(e.Message + "\n" + e.StackTrace);
+                        App.Logger.Error(e.Message + "\n" + e.StackTrace);
                         return false;
                     }
                     return true;

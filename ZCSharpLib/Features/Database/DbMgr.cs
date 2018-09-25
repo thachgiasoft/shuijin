@@ -134,7 +134,7 @@ namespace ZCSharpLib.Features.Database
             }
             catch (Exception e)
             {
-                ZLogger.Error("数据库操作出错!{0}\n{1}", query, e);
+                App.Logger.Error("数据库操作出错!{0}\n{1}", query, e);
             }
             return reader;
         }

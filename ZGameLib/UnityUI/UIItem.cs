@@ -1,21 +1,34 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using ZCSharpLib;
-using ZCSharpLib.Common;
+using ZGameLib.UnityRuntime;
 using ZGameLib.UnityUI.Element;
 
 namespace ZGameLib.UnityUI
 {
     public abstract class UIItem : IDisposable
     {
+        private UnityBehaviour mBehaviour;
+        private UnityBehaviour Behaviour
+        {
+            get
+            {
+                if (mBehaviour == null)
+                {
+                    if (Entity != null)
+                    {
+                        mBehaviour = Entity.AddComponent<UnityBehaviour>();
+                    }
+                }
+                return mBehaviour;
+            }
+        }
+
         public bool IsOpened { get; protected set; }
-
         public GameObject Entity { get; protected set; }
-
+        public Action<UIItem> OnLayerChanged { get; set; }
         protected Dictionary<string, object> ElementDict { get; set; }
 
         public UIItem()
@@ -32,6 +45,7 @@ namespace ZGameLib.UnityUI
         {
             Entity = obj;
             AssemblyElement(Entity.transform);
+            ToLayer(LayerUI);
             Initialize();
             OnInitialize();
         }
@@ -45,7 +59,7 @@ namespace ZGameLib.UnityUI
                 {
                     if (ElementDict.ContainsKey(oElement.name))
                     {
-                        ZLogger.Error("{0}已经包含当前元素对象{1}", GetType().Name, oElement.name);
+                        App.Logger.Error("{0}已经包含当前元素对象{1}", GetType().Name, oElement.name);
                     }
                     else
                     {
@@ -67,7 +81,7 @@ namespace ZGameLib.UnityUI
             object obj = null;
             if (!ElementDict.TryGetValue(name, out obj))
             {
-                ZLogger.Error("{0}没有找到元素 name={1}", GetType(), name);
+                App.Logger.Error("{0}没有找到元素 name={1}", GetType(), name);
             }
             return obj;
         }
@@ -84,23 +98,58 @@ namespace ZGameLib.UnityUI
 
         public virtual void ToLast()
         {
-            LayerUI = LayerUI.Last;
-            ToLayer();
+            ToLayer(LayerUI.Last);
         }
 
         public virtual void ToFirst()
         {
-            LayerUI = LayerUI.First;
-            ToLayer();
+            ToLayer(LayerUI.First);
         }
 
-        public virtual void ToLayer()
+        public virtual void ToLayer(LayerUI layer)
         {
+            LayerUI = layer;
             if (Entity != null)
             {
-                if (LayerUI == LayerUI.First) Entity.transform.SetAsFirstSibling();
-                else if (LayerUI == LayerUI.Last) Entity.transform.SetAsLastSibling();
-                LayerUI = LayerUI.None;
+                StartCoroutine(IEToLayer());
+            }
+        }
+
+        private IEnumerator IEToLayer()
+        {
+            yield return null;
+            if (LayerUI == LayerUI.First)
+            {
+                Entity.transform.SetAsFirstSibling();
+            }
+            else if (LayerUI == LayerUI.Last)
+            {
+                Entity.transform.SetAsLastSibling();
+            }
+            OnLayerChanged?.Invoke(this);
+        }
+
+        public virtual void StartCoroutine(IEnumerator enumerator)
+        {
+            if (Behaviour != null)
+            {
+                Behaviour.StartCoroutine(enumerator);
+            }
+        }
+
+        public virtual void StopCoroutine(IEnumerator enumerator)
+        {
+            if (Behaviour != null)
+            {
+                Behaviour.StopCoroutine(enumerator);
+            }
+        }
+
+        public virtual void StopAllCoroutine()
+        {
+            if (Behaviour != null)
+            {
+                Behaviour.StopAllCoroutines();
             }
         }
 

@@ -9,7 +9,7 @@ using ZCSharpLib;
 
 namespace ZGameLib.UnityAsset
 {
-    public class Asset : ZObject
+    public class Asset : Any
     {
         public enum AssetType
         {
@@ -64,18 +64,23 @@ namespace ZGameLib.UnityAsset
             return ThisType;
         }
 
-        public void StartLoad()
+        public void Get()
         {
-            App.AttachTick(Loop);
             Loader = new WWW(Url);
+            StartLoop();
         }
 
-        public void CloseLoad()
+        private void StartLoop()
+        {
+            App.AttachTick(Loop);
+        }
+
+        private void CloseLoop()
         {
             App.DetachTick(Loop);
         }
 
-        public virtual void Loop(float deltaTime)
+        protected virtual void Loop(float deltaTime)
         {
             bool isDone = Loader.isDone; // www 是异步操作, 所以这里用变量来记录是否下载完成，防止在同一个方法里面多次使用www.isDone获取的值不同
             IsDone = isDone;
@@ -83,6 +88,7 @@ namespace ZGameLib.UnityAsset
             {
                 if (string.IsNullOrEmpty(Loader.error)) IsSucess = true;
                 else { IsSucess = false; Error = Loader.error; }
+                CloseLoop();
             }
             Progress = Loader.progress;
             Callback?.Invoke(this);
@@ -123,7 +129,10 @@ namespace ZGameLib.UnityAsset
                 if (retObj == null)
                 {
                     retObj = bundle.LoadAsset(name);
-                    if (retObj == null) { ZLogger.Error("当前资源：{0} AssetBundle中没有找到对应名称 name={1} 的资源!", Url, name); }
+                    if (retObj == null)
+                    {
+                        App.Logger.Error("当前资源：{0} AssetBundle中没有找到对应名称 name={1} 的资源!", Url, name);
+                    }
                     else { list.Add(retObj); }
                 }
             }
@@ -191,9 +200,10 @@ namespace ZGameLib.UnityAsset
             else return null;
         }
 
-        public void AddEvent(Action<Asset> callback)
+        public Asset AddEvent(Action<Asset> callback)
         {
             Callback = callback;
+            return this;
         }
 
         protected override void DoManagedObjectDispose()
@@ -214,16 +224,6 @@ namespace ZGameLib.UnityAsset
                 else if (key.Equals(ASSETAUDIO)) UnityEngine.Object.DestroyImmediate(obj as AudioClip);
             }
             if (mAssetBundle != null) { mAssetBundle.Unload(true); }
-        }
-
-        public override object Clone()
-        {
-            throw new Exception("GameLib.UnityAsset.Asset对象无法克隆!");
-        }
-
-        public override void CopyTo(object destObj)
-        {
-            throw new Exception("GameLib.UnityAsset.Asset对象无法拷贝数据!");
         }
     }
 }

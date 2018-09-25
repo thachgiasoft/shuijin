@@ -48,8 +48,8 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             }
             catch (Exception e)
             {
-                ZLogger.Error("Accept client {0} error, message: {1}", eventArgs.AcceptSocket, e.Message);
-                ZLogger.Error(e.StackTrace);
+                App.Logger.Error("Accept client {0} error, message: {1}", eventArgs.AcceptSocket, e.Message);
+                App.Logger.Error(e.StackTrace);
             }
         }
 
@@ -75,8 +75,8 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             }
             catch (Exception E)
             {
-                ZLogger.Error("Accept client {0} error, message: {1}", UserToken.ConnectSocket, E.Message);
-                ZLogger.Error(E.StackTrace);
+                App.Logger.Error("Accept client {0} error, message: {1}", UserToken.ConnectSocket, E.Message);
+                App.Logger.Error(E.StackTrace);
             }
         }
     }

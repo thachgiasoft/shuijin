@@ -121,7 +121,7 @@ namespace ZCSharpLib.Features.Database
                     }
                     catch (Exception e)
                     {
-                        ZLogger.Error("设置参数出现异常! 表{0} 索引位置{1}, 列名{2} 异常：{3}", Container.SQLTable, i, oBaseField.FieldName, e);
+                        App.Logger.Error("设置参数出现异常! 表{0} 索引位置{1}, 列名{2} 异常：{3}", Container.SQLTable, i, oBaseField.FieldName, e);
                     }
                 }
             }
@@ -175,7 +175,7 @@ namespace ZCSharpLib.Features.Database
                         }
                         catch (Exception e)
                         {
-                            ZLogger.Error("设置参数出现异常! 表{0} 索引位置{1}, 列名{2} 异常：{3}", Container.SQLTable, i, oBaseField.FieldName, e);
+                            App.Logger.Error("设置参数出现异常! 表{0} 索引位置{1}, 列名{2} 异常：{3}", Container.SQLTable, i, oBaseField.FieldName, e);
                         }
                     }
                 }

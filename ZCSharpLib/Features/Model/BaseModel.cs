@@ -67,7 +67,7 @@ namespace ZCSharpLib.Features.Model
             }
             else
             {
-                ZLogger.Error("{0} 已经存在数据: GUID={1}", GetType().Name, oGuid);
+                App.Logger.Error("{0} 已经存在数据: GUID={1}", GetType().Name, oGuid);
                 return false;
             }
         }
@@ -91,7 +91,7 @@ namespace ZCSharpLib.Features.Model
             }
             else
             {
-                ZLogger.Error("{0} 没有找到对应数据：{1}", typeof(T), oGuid);
+                App.Logger.Error("{0} 没有找到对应数据：{1}", typeof(T), oGuid);
                 return false;
             }
         }
@@ -119,7 +119,7 @@ namespace ZCSharpLib.Features.Model
             }
             else
             {
-                ZLogger.Error("{0} 没有找到对应数据: GUID={1}", GetType().Name, oGuid);
+                App.Logger.Error("{0} 没有找到对应数据: GUID={1}", GetType().Name, oGuid);
                 return false;
             }
         }
@@ -132,7 +132,7 @@ namespace ZCSharpLib.Features.Model
             T oData = null;
             if (!DataTable.TryGetValue(oGuid, out oData))
             {
-                ZLogger.Error("{0} 没有找到对应数据: GUID={1}", GetType().Name, oGuid);
+                App.Logger.Error("{0} 没有找到对应数据: GUID={1}", GetType().Name, oGuid);
             }
             T t = oData.Clone() as T;
             return t;

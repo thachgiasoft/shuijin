@@ -128,7 +128,7 @@ namespace ZCSharpLib.ZTEvent
                     {
                         IEventListener listener = listeners[i];
                         try { listener.OnNotify(args); }
-                        catch (Exception e) { ZLogger.Error(e); }
+                        catch (Exception e) { App.Logger.Error(e); }
                     }
                 }
                 else

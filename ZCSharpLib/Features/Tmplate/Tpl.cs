@@ -43,7 +43,7 @@ namespace ZCSharpLib.Features.Tmplate
                     }
                     else
                     {
-                        ZLogger.Error("Tempate 没有找到类型:{0}", paramName);
+                        App.Logger.Error("Tempate 没有找到类型:{0}", paramName);
                     }
                 }
             }
@@ -58,10 +58,10 @@ namespace ZCSharpLib.Features.Tmplate
                 }
                 else
                 {
-                    ZLogger.Error("TplDict已经包含同样名称的键:{0}", mgrWarp.Type);
+                    App.Logger.Error("TplDict已经包含同样名称的键:{0}", mgrWarp.Type);
                 }
             }
-            ZLogger.Info("Template 完成模板添加操作");
+            App.Logger.Info("Template 完成模板添加操作");
         }
 
         public static void Setup(byte[] bytes)

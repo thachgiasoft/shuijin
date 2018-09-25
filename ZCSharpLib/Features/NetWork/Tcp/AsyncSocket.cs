@@ -78,8 +78,8 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             }
             catch (Exception e)
             {
-                ZLogger.Error("IO_Completed {0} error, message: {1}", userToken.ConnectSocket, e.Message);
-                ZLogger.Error(e.StackTrace);
+                App.Logger.Error("IO_Completed {0} error, message: {1}", userToken.ConnectSocket, e.Message);
+                App.Logger.Error(e.StackTrace);
             }
         }
 
@@ -165,14 +165,14 @@ namespace ZCSharpLib.Features.NetWork.Tcp
                 return;
             string socketInfo = string.Format("Local Address: {0} Remote Address: {1}", userToken.ConnectSocket.LocalEndPoint,
                 userToken.SendEventArgs.RemoteEndPoint);
-            ZLogger.Info("Connection disconnected. {0}", socketInfo);
+            App.Logger.Info("Connection disconnected. {0}", socketInfo);
             try
             {
                 userToken.ConnectSocket.Shutdown(SocketShutdown.Both);
             }
             catch (Exception E)
             {
-                ZLogger.Info("CloseSocket Disconnect {0} error, message: {1}", socketInfo, E.Message);
+                App.Logger.Info("CloseSocket Disconnect {0} error, message: {1}", socketInfo, E.Message);
             }
             userToken.ConnectSocket.Close();
             userToken.ConnectSocket = null; //释放引用，并清理缓存，包括释放协议对象等资源

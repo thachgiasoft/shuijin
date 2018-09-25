@@ -124,10 +124,8 @@
     <Compile Include="ZTGeneric\ZObjectList.cs" />
     <Compile Include="ZTObject\ZObjectPool.cs" />
     <Compile Include="Features\Database\BaseDb.cs" />
-    <Compile Include="ZSupport\Adapter\ModelAccesser.cs" />
     <Compile Include="Features\Database\DbOperate.cs" />
     <Compile Include="Features\Model\ModelEventArgs.cs" />
-    <Compile Include="ZSupport\Providers\ModelProvider.cs" />
     <Compile Include="ZTThread\MainThread.cs" />
     <Compile Include="ZTThread\ThreadSync.cs" />
     <Compile Include="ZTUtils\LunarSolarConverter.cs" />
@@ -170,7 +168,7 @@
     <Compile Include="ZZZDisuse\Features\Web\WebLoaderMgr.cs" />
     <Compile Include="Features\Json\JsonUtility.cs" />
     <Compile Include="Features\Json\SimpleJson.cs" />
-    <Compile Include="Common\ZLogger.cs" />
+    <Compile Include="Common\Logger.cs" />
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Features\Tmplate\Tpl.cs" />
     <Compile Include="ZTUtils\ZFileUtil.cs" />

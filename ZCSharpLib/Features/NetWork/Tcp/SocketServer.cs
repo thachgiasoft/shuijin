@@ -33,7 +33,7 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             ListenSocket = new Socket(localEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
             ListenSocket.Bind(localEndPoint);
             ListenSocket.Listen(NumConnections);
-            ZLogger.Info("Start listen socket {0} success", localEndPoint.ToString());
+            App.Logger.Info("Start listen socket {0} success", localEndPoint.ToString());
             StartAccept(null);
             SocketTimeOutMS = 60 * 1000;
             DaemonThread = new DaemonThread(this);
@@ -67,14 +67,14 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             }
             catch (Exception e)
             {
-                ZLogger.Error("Accept client {0} error, message: {1}", acceptEventArgs.AcceptSocket, e.Message);
-                ZLogger.Error(e.StackTrace);
+                App.Logger.Error("Accept client {0} error, message: {1}", acceptEventArgs.AcceptSocket, e.Message);
+                App.Logger.Error(e.StackTrace);
             }
         }
 
         private void ProcessAccept(SocketAsyncEventArgs acceptEventArgs)
         {
-            ZLogger.Info("Client connection accepted. Local Address: {0}, Remote Address: {1}",
+            App.Logger.Info("Client connection accepted. Local Address: {0}, Remote Address: {1}",
                 acceptEventArgs.AcceptSocket.LocalEndPoint, acceptEventArgs.AcceptSocket.RemoteEndPoint);
 
             AsyncSocketUserToken userToken = AsyncSocketUserTokenPool.Pop();
@@ -95,8 +95,8 @@ namespace ZCSharpLib.Features.NetWork.Tcp
             }
             catch (Exception E)
             {
-                ZLogger.Error("Accept client {0} error, message: {1}", userToken.ConnectSocket, E.Message);
-                ZLogger.Error(E.StackTrace);
+                App.Logger.Error("Accept client {0} error, message: {1}", userToken.ConnectSocket, E.Message);
+                App.Logger.Error(E.StackTrace);
             }
 
             StartAccept(acceptEventArgs); //把当前异步事件释放，等待下次连接

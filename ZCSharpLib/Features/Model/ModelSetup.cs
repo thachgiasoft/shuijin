@@ -48,7 +48,7 @@ namespace ZCSharpLib.Features.Model
                     Type tType = oData.GetType();
                     ModelObject model = FindModelByDataType(tType);
                     if (model != null) { model.InjectData(oDatas); }
-                    else { ZLogger.Error("当前数据类型 type={0} 没有找到对应的Model", tType); }
+                    else { App.Logger.Error("当前数据类型 type={0} 没有找到对应的Model", tType); }
                 }
             }
         }

@@ -45,8 +45,8 @@ namespace ZCSharpLib.Features.NetWork.Tcp
                     }
                     catch (Exception e)
                     {
-                        ZLogger.Error("Daemon thread check timeout socket error, message: {0}", e.Message);
-                        ZLogger.Error(e.StackTrace);
+                        App.Logger.Error("Daemon thread check timeout socket error, message: {0}", e.Message);
+                        App.Logger.Error(e.StackTrace);
                     }
                 }
 

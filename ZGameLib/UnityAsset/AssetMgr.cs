@@ -2,10 +2,12 @@
 using ZGameLib.UnityAsset.Loader;
 using ZCSharpLib.Common;
 using System;
+using ZCSharpLib.ZTObject;
+using ZCSharpLib;
 
 namespace ZGameLib.UnityAsset
 {
-    public class AssetMgr
+    public class AssetMgr : Any
     {
         private Dictionary<string, Asset> AssetCache { get; set; }
 
@@ -15,16 +17,6 @@ namespace ZGameLib.UnityAsset
         {
             AssetQueue = new AssetQueue();
             AssetCache = new Dictionary<string, Asset>();
-        }
-
-        public void Open()
-        {
-            if (AssetQueue != null) AssetQueue.Open();
-        }
-
-        public void Close()
-        {
-            if (AssetQueue != null) AssetQueue.Close();
         }
 
         private Asset Find(string url)
@@ -71,7 +63,7 @@ namespace ZGameLib.UnityAsset
                 if (asset == null) { allLoader.AddLoad(url); }
                 else
                 {
-                    ZLogger.Error("资源url={0}已经存在,无需重复下载!", url);
+                    App.Logger.Error("资源url={0}已经存在,无需重复下载!", url);
                 }
             }
             return allLoader;
@@ -84,6 +76,12 @@ namespace ZGameLib.UnityAsset
                 item.Dispose();
             }
             AssetCache.Clear();
+        }
+
+        protected override void DoManagedObjectDispose()
+        {
+            base.DoManagedObjectDispose();
+            AssetQueue.Dispose();
         }
     }
 }

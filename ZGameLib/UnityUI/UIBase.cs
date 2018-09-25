@@ -30,7 +30,7 @@ namespace ZGameLib.UnityUI
                 }
                 else if (t.IsDone && !t.IsSucess)
                 {
-                    ZLogger.Error("UI资源没有下载完成, 无法创建! 资源地址: {0}", assetPath);
+                    App.Logger.Error("UI资源没有下载完成, 无法创建! 资源地址: {0}", assetPath);
                 }
             });
         }

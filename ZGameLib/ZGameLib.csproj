@@ -44,23 +44,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.cs" />
-    <Compile Include="UnityAsset\AssetProvider.cs" />
+    <Compile Include="UnityRuntime\UnityBehaviour.cs" />
     <Compile Include="UnityUI\Enums.cs" />
     <Compile Include="UnityUI\UIBase.cs" />
     <Compile Include="UnityUI\UIItem.cs" />
     <Compile Include="UnityUI\UIMgr.cs" />
-    <Compile Include="UnityUI\UIMgrProvider.cs" />
     <Compile Include="UnityUI\Element\ZUIItem.cs" />
     <Compile Include="UnityUI\Element\ZUIElement.cs" />
-    <Compile Include="UnityAsync\UnityAsync.cs" />
-    <Compile Include="UnityAsync\UnityAsyncProvider.cs" />
     <Compile Include="UnityAsset\AssetAllQueue.cs" />
     <Compile Include="UnityAsset\AssetQueue.cs" />
     <Compile Include="UnityAsset\Asset.cs" />
     <Compile Include="UnityAsset\AssetMgr.cs" />
     <Compile Include="UnityLog\UnityLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityLog\UnityLoggerProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZCSharpLib\ZCSharpLib.csproj">
@@ -68,7 +64,9 @@
       <Name>ZCSharpLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UnitySupport\Provider\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)ZGameLib.dll" "F:\work\unity\PJiangHu\arts\Assets\Scripts\ZGameLib.dll"

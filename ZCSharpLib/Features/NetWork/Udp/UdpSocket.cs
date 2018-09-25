@@ -42,7 +42,7 @@ namespace ZCSharpLib.Features.NetWork.Udp
             UserToken.ReceiveEventArgs.RemoteEndPoint = listenPort;
             UserToken.SendEventArgs.RemoteEndPoint = new IPEndPoint(IPAddress.Broadcast, port);
             UserToken.ConnectSocket.ReceiveFromAsync(UserToken.ReceiveEventArgs);
-            ZLogger.Info("Start listen socket {0} success", listenPort.ToString());
+            App.Logger.Info("Start listen socket {0} success", listenPort.ToString());
         }
 
         private void IO_Completed(object sender, SocketAsyncEventArgs e)
@@ -63,8 +63,8 @@ namespace ZCSharpLib.Features.NetWork.Udp
             }
             catch (Exception E)
             {
-                ZLogger.Error("IO_Completed {0} error, message: {1}", userToken.ConnectSocket, E.Message);
-                ZLogger.Error(E.StackTrace);
+                App.Logger.Error("IO_Completed {0} error, message: {1}", userToken.ConnectSocket, E.Message);
+                App.Logger.Error(E.StackTrace);
             }
         }
 

@@ -107,7 +107,7 @@ namespace ZCSharpLib.Features.Web
                 mThreadIsSucess = true;
                 mThreadIsDone = true;
                 mThreadProgress = 1;
-                ZLogger.Debug("文件已经存在!无需再次下载保存:{0}", SavePath);
+                App.Logger.Debug("文件已经存在!无需再次下载保存:{0}", SavePath);
             }
             else
             {
@@ -230,7 +230,7 @@ namespace ZCSharpLib.Features.Web
             }
             catch (Exception e)
             {
-                ZLogger.Error(e.ToString());
+                App.Logger.Error(e.ToString());
             }
         }
 

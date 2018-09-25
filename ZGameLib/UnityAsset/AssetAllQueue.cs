@@ -105,14 +105,13 @@ namespace ZGameLib.UnityAsset.Loader
                 {
                     mCurItem = mItems[0];
                     mItems.RemoveAt(0);
-                    mCurItem.StartLoad();
+                    mCurItem.Get();
                 }
             }
             if (mCurItem != null)
             {
                 if (mCurItem.IsDone)
                 {
-                    mCurItem.CloseLoad();
                     mCurItem = null;
                 }
             }

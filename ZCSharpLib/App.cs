@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
+using ZCSharpLib.Common;
 using ZCSharpLib.Common.Provider;
 using ZCSharpLib.Tick;
 using ZCSharpLib.ZTThread;
@@ -15,6 +16,10 @@ namespace ZCSharpLib
         /// 时钟循环
         /// </summary>
         public static readonly Ticker Ticker = new Ticker();
+        /// <summary>
+        /// 日志输出
+        /// </summary>
+        public static readonly Logger Logger = new Logger();
         /// <summary>
         /// 主线程
         /// </summary>
@@ -91,9 +96,9 @@ namespace ZCSharpLib
         #region app服务对象
         private static readonly ServiceProvider ServiceProvider = new ServiceProvider();
 
-        public static void Register(IZServiceProvider[] oProviders)
+        public static void Register(IZServiceProvider[] serviceProviders)
         {
-            ServiceProvider.Register(oProviders);
+            ServiceProvider.Register(serviceProviders);
         }
 
         public static void Initialize()
