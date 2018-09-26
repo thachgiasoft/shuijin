@@ -93,7 +93,7 @@ namespace ZCSharpLib
         }
         #endregion
 
-        #region app服务对象
+        #region 服务对象
         private static readonly ServiceProvider ServiceProvider = new ServiceProvider();
 
         public static void Register(IZServiceProvider[] serviceProviders)
@@ -117,7 +117,7 @@ namespace ZCSharpLib
         }
         #endregion
 
-        #region app循环
+        #region 时钟循环
         public static void AttachTick(Action<float> tick)
         {
             Ticker.Attach(tick);

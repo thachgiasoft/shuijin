@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.cs" />
+    <Compile Include="UnityNet\NetMgr.cs" />
     <Compile Include="UnityRuntime\UnityBehaviour.cs" />
     <Compile Include="UnityUI\Enums.cs" />
     <Compile Include="UnityUI\UIBase.cs" />
