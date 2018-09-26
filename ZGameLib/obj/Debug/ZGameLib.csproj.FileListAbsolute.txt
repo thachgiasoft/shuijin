@@ -42,3 +42,13 @@ F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CoreCompileInputs.cache
 F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CopyComplete
 F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.dll
 F:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.pdb
+E:\work\repos\shuijin\ZGameLib\bin\Debug\ZGameLib.dll
+E:\work\repos\shuijin\ZGameLib\bin\Debug\ZGameLib.pdb
+E:\work\repos\shuijin\ZGameLib\bin\Debug\ZCSharpLib.dll
+E:\work\repos\shuijin\ZGameLib\bin\Debug\ZCSharpLib.pdb
+E:\work\repos\shuijin\ZGameLib\bin\Debug\UnityEngine.xml
+E:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csprojAssemblyReference.cache
+E:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CoreCompileInputs.cache
+E:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.csproj.CopyComplete
+E:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.dll
+E:\work\repos\shuijin\ZGameLib\obj\Debug\ZGameLib.pdb

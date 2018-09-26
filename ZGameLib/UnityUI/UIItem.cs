@@ -28,7 +28,6 @@ namespace ZGameLib.UnityUI
 
         public bool IsOpened { get; protected set; }
         public GameObject Entity { get; protected set; }
-        public Action<UIItem> OnLayerChanged { get; set; }
         protected Dictionary<string, object> ElementDict { get; set; }
 
         public UIItem()
@@ -124,9 +123,10 @@ namespace ZGameLib.UnityUI
             }
             else if (LayerUI == LayerUI.Last)
             {
-                Entity.transform.SetAsLastSibling();
+                Entity.transform.SetAsLastSibling(); 
             }
-            OnLayerChanged?.Invoke(this);
+            GameObject uroot = Global.UnityUI.Root2D;
+            if (uroot != null) uroot.SendMessage("OnLayerChanged", this, SendMessageOptions.DontRequireReceiver);
         }
 
         public virtual void StartCoroutine(IEnumerator enumerator)

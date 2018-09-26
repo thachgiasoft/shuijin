@@ -35,10 +35,6 @@ namespace ZGameLib.UnityUI
             if (item == null)
             {
                 item = Activator.CreateInstance(type) as UIItem;
-                item.OnLayerChanged = (t) => 
-                {
-                    Global.UnityUI.Root2D.gameObject.SendMessage("OnLayerChanged", SendMessageOptions.DontRequireReceiver);
-                };
                 UIDict.Add(type.Name, item);
             }
             Open(type.Name);
